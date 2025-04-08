@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "apillon-mcp-server": {
+      "command": "tsx",
+      "args": ["/full/path/to/index.ts"],
+      "env": {
+        "APILLON_API_KEY": "<APILLON_API_KEY>",
+        "APILLON_API_SECRET": "<APILLON_API_SECRET>"
+      }
+    }
+  }
+}
