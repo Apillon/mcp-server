@@ -5,8 +5,9 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { storageTools, handleStorageTool } from "./storage.js";
-import { hostingTools, handleHostingTool } from "./hosting.js";
+import { storageTools, handleStorageTool } from "./storage.ts";
+import { hostingTools, handleHostingTool } from "./hosting.ts";
+import { nftTools, handleNftTool } from "./nft.ts";
 
 // Initialize the MCP server
 const server = new Server(
@@ -16,7 +17,7 @@ const server = new Server(
 
 // Tool handlers
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [...storageTools, ...hostingTools],
+  tools: [...storageTools, ...hostingTools, ...nftTools],
 }));
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
@@ -31,6 +32,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     // Handle hosting tools
     if (hostingTools.some((tool) => tool.name === name)) {
       return await handleHostingTool(name, args);
+    }
+
+    // Handle NFT tools
+    if (nftTools.some((tool) => tool.name === name)) {
+      return await handleNftTool(name, args);
     }
 
     throw new Error(`Unknown tool: ${name}`);
