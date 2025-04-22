@@ -7,6 +7,14 @@
         "APILLON_API_KEY": "<APILLON_API_KEY>",
         "APILLON_API_SECRET": "<APILLON_API_SECRET>"
       }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/your-username/Desktop"
+      ]
     }
   }
 }
