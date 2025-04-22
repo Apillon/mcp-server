@@ -13,7 +13,7 @@ const apillonHosting = new Hosting({
 // Schema definitions
 export const ListWebsitesArgsSchema = z.object({
   limit: z.number().optional().default(10),
-  offset: z.number().optional().default(0),
+  page: z.number().optional().default(0),
 });
 
 export const GetWebsiteArgsSchema = z.object({
@@ -40,7 +40,7 @@ export const DeployWebsiteArgsSchema = z.object({
 export const ListDeploymentsArgsSchema = z.object({
   websiteUuid: z.string(),
   limit: z.number().optional().default(10),
-  offset: z.number().optional().default(0),
+  page: z.number().optional().default(0),
 });
 
 const ToolInputSchema = ToolSchema.shape.inputSchema;
@@ -61,13 +61,6 @@ export const hostingTools = [
       "Get details of a specific website by its UUID. " +
       "Returns detailed information about the website including deployment status.",
     inputSchema: zodToJsonSchema(GetWebsiteArgsSchema) as ToolInput,
-  },
-  {
-    name: "create_website",
-    description:
-      "Create a new website in your Apillon account. " +
-      "Requires a name and bucket UUID, with optional description and domain.",
-    inputSchema: zodToJsonSchema(CreateWebsiteArgsSchema) as ToolInput,
   },
   {
     name: "upload_website_files",
@@ -104,6 +97,8 @@ export async function handleHostingTool(name: string, args: any) {
       try {
         const websites = await apillonHosting.listWebsites({
           limit: parsed.data.limit,
+          page: parsed.data.page,
+          status: 5,
         });
 
         return {
@@ -143,57 +138,6 @@ export async function handleHostingTool(name: string, args: any) {
       } catch (error) {
         throw new Error(
           `Failed to get website: ${
-            error instanceof Error ? error.message : String(error)
-          }`
-        );
-      }
-    }
-    case "create_website": {
-      const parsed = CreateWebsiteArgsSchema.safeParse(args);
-      if (!parsed.success) {
-        throw new Error(
-          `Invalid arguments for create_website: ${parsed.error}`
-        );
-      }
-
-      try {
-        // Note: The SDK doesn't have a direct create method, so we need to use the API
-        // This is a placeholder for the actual implementation
-        // In a real implementation, you would use the API directly or extend the SDK
-        const apiUrl = "https://api-dev.apillon.io";
-        const response = await fetch(`${apiUrl}/hosting/websites`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.APILLON_API_KEY}:${process.env.APILLON_API_SECRET}`,
-          },
-          body: JSON.stringify({
-            name: parsed.data.name,
-            description: parsed.data.description,
-            domain: parsed.data.domain,
-            bucketUuid: parsed.data.bucketUuid,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(
-            `API error: ${response.status} ${response.statusText}`
-          );
-        }
-
-        const result = await response.json();
-
-        return {
-          content: [
-            {
-              type: "text",
-              text: JSON.stringify(result, null, 2),
-            },
-          ],
-        };
-      } catch (error) {
-        throw new Error(
-          `Failed to create website: ${
             error instanceof Error ? error.message : String(error)
           }`
         );

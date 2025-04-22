@@ -13,7 +13,7 @@ const apillonNft = new Nft({
 // Schema definitions
 export const ListCollectionsArgsSchema = z.object({
   limit: z.number().optional().default(10),
-  offset: z.number().optional().default(0),
+  page: z.number().optional().default(0),
 });
 
 export const GetCollectionArgsSchema = z.object({
@@ -57,7 +57,7 @@ export const TransferOwnershipArgsSchema = z.object({
 export const ListTransactionsArgsSchema = z.object({
   collectionUuid: z.string(),
   limit: z.number().optional().default(10),
-  offset: z.number().optional().default(0),
+  page: z.number().optional().default(0),
 });
 
 const ToolInputSchema = ToolSchema.shape.inputSchema;
@@ -130,6 +130,8 @@ export async function handleNftTool(name: string, args: any) {
       try {
         const collections = await apillonNft.listCollections({
           limit: parsed.data.limit,
+          page: parsed.data.page,
+          status: 5,
         });
 
         return {

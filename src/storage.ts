@@ -14,14 +14,14 @@ const apillonStorage = new Storage({
 // Schema definitions
 export const ListBucketsArgsSchema = z.object({
   limit: z.number().optional().default(10),
-  offset: z.number().optional().default(0),
+  page: z.number().optional().default(0),
 });
 
 export const ListObjectsArgsSchema = z.object({
   bucketUuid: z.string(),
   directoryUuid: z.string().optional(),
   limit: z.number().optional().default(10),
-  offset: z.number().optional().default(0),
+  page: z.number().optional().default(0),
 });
 
 export const UploadFileArgsSchema = z.object({
@@ -73,6 +73,8 @@ export async function handleStorageTool(name: string, args: any) {
       try {
         const buckets = await apillonStorage.listBuckets({
           limit: parsed.data.limit,
+          page: parsed.data.page,
+          status: 5
         });
 
         return {
