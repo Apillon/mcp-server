@@ -6,7 +6,7 @@ import { ToolSchema } from "@modelcontextprotocol/sdk/types.js";
 
 // Initialize Apillon Storage client
 const apillonStorage = new Storage({
-  apiUrl: "https://api-dev.apillon.io",
+  apiUrl: "https://api.apillon.io",
   key: process.env.APILLON_API_KEY || "",
   secret: process.env.APILLON_API_SECRET || "",
 });

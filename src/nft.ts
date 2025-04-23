@@ -5,7 +5,7 @@ import { ToolSchema } from "@modelcontextprotocol/sdk/types.js";
 
 // Initialize Apillon NFT client
 const apillonNft = new Nft({
-  apiUrl: "https://api-dev.apillon.io",
+  apiUrl: "https://api.apillon.io",
   key: process.env.APILLON_API_KEY || "",
   secret: process.env.APILLON_API_SECRET || "",
 });
@@ -40,6 +40,7 @@ export const CreateCollectionArgsSchema = z.object({
 
 export const MintNftArgsSchema = z.object({
   collectionUuid: z.string(),
+  receivingAddress: z.string(),
   quantity: z.number().optional().default(1),
   tokenId: z.number().optional(),
 });
@@ -242,6 +243,7 @@ export async function handleNftTool(name: string, args: any) {
         const collection = apillonNft.collection(parsed.data.collectionUuid);
         const mintParams: any = {
           quantity: parsed.data.quantity,
+          receivingAddress: parsed.data.receivingAddress,
         };
 
         if (parsed.data.tokenId !== undefined) {
