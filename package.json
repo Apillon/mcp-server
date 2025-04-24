@@ -1,14 +1,22 @@
 {
   "name": "@apillon/mcp-server",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "description": "Apillon MCP Server for Storage, Hosting, and NFT modules",
   "author": "Apillon (https://apillon.io)",
   "homepage": "https://apillon.io",
-  "repository": "https://github.com/Apillon/mcp-server",
-  "bugs": "https://github.com/Apillon/mcp-server/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Apillon/mcp-server"
+  },
+  "bugs": {
+    "url": "https://github.com/Apillon/mcp-server/issues"
+  },
   "bin": {
     "mcp-server": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "workspaces": [
     "src/*"
   ],

@@ -53,7 +53,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.info("Apillon MCP Server running on stdio");
+  // Error so it doesn't interfere with the MCP server stdio output
+  console.error(`Apillon MCP Server v${process.env.npm_package_version} running on stdio`);
 }
 
 runServer().catch((error) => {
