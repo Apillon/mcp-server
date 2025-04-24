@@ -54,7 +54,7 @@ async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   // Error so it doesn't interfere with the MCP server stdio output
-  console.error(`Apillon MCP Server v${process.env.npm_package_version} running on stdio`);
+  console.error(`Apillon MCP Server v${require('../package.json').version} running on stdio`);
 }
 
 runServer().catch((error) => {
