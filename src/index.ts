@@ -5,9 +5,9 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { storageTools, handleStorageTool } from "./storage.ts";
-import { hostingTools, handleHostingTool } from "./hosting.ts";
-import { nftTools, handleNftTool } from "./nft.ts";
+import { storageTools, handleStorageTool } from "./storage";
+import { hostingTools, handleHostingTool } from "./hosting";
+import { nftTools, handleNftTool } from "./nft";
 
 // Initialize the MCP server
 const server = new Server(
@@ -53,7 +53,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Apillon MCP Server running on stdio");
+  console.info("Apillon MCP Server running on stdio");
 }
 
 runServer().catch((error) => {

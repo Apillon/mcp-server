@@ -6,7 +6,6 @@
   "homepage": "https://apillon.io",
   "repository": "https://github.com/Apillon/mcp-server",
   "bugs": "https://github.com/Apillon/mcp-server/issues",
-  "type": "module",
   "bin": {
     "mcp-server": "./dist/index.js"
   },
