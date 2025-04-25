@@ -67,7 +67,6 @@ Copy the configuration from [claude_desktop_config.json](./claude_desktop_config
 
 ```json
 {
-  {
     "mcpServers": {
       "apillon-mcp-server": {
         "command": "npx",
@@ -87,7 +86,6 @@ Copy the configuration from [claude_desktop_config.json](./claude_desktop_config
       }
     }
   }
-}
 ```
 
 4. **Restart Claude for Desktop**
