@@ -67,25 +67,25 @@ Copy the configuration from [claude_desktop_config.json](./claude_desktop_config
 
 ```json
 {
-    "mcpServers": {
-      "apillon-mcp-server": {
-        "command": "npx",
-        "args": ["-y", "@apillon/mcp-server"],
-        "env": {
-          "APILLON_API_KEY": "<APILLON_API_KEY>",
-          "APILLON_API_SECRET": "<APILLON_API_SECRET>"
-        }
-      },
-      "filesystem": {
-        "command": "npx",
-        "args": [
-          "-y",
-          "@modelcontextprotocol/server-filesystem",
-          "/Users/your-username/Desktop"
-        ]
+  "mcpServers": {
+    "apillon-mcp-server": {
+      "command": "npx",
+      "args": ["-y", "@apillon/mcp-server"],
+      "env": {
+        "APILLON_API_KEY": "<APILLON_API_KEY>",
+        "APILLON_API_SECRET": "<APILLON_API_SECRET>"
       }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/your-username/Desktop"
+      ]
     }
   }
+}
 ```
 
 4. **Restart Claude for Desktop**
