@@ -1,6 +1,6 @@
 # Apillon MCP Server
 
-[![npm version](https://badge.fury.io/js/@apillon%mcp-server.svg)](https://badge.fury.io/js/@apillon%2Fmcp-server)
+[![npm version](https://badge.fury.io/js/@apillon%2Fmcp-server.svg)](https://badge.fury.io/js/@apillon%2Fmcp-server)
 
 Welcome to the Apillon MCP Server repository. This project implements a server using the Model Context Protocol (MCP) to provide modules for Storage, Hosting, and NFT functionalities.
 
