@@ -1,6 +1,6 @@
 {
   "name": "@apillon/mcp-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Apillon MCP Server for Storage, Hosting, and NFT modules",
   "author": "Apillon (https://apillon.io)",
   "homepage": "https://apillon.io",
@@ -25,13 +25,13 @@
     "build": "tsc && shx chmod +x dist/*.js"
   },
   "dependencies": {
-    "@apillon/sdk": "^3.10.0",
-    "@modelcontextprotocol/sdk": "^1.10.2",
+    "@apillon/sdk": "^3.11.0",
+    "@modelcontextprotocol/sdk": "^1.12.0",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@types/node": "^22.14.1",
+    "@types/node": "^22.15.24",
     "shx": "^0.4.0",
-    "tsx": "^4.19.3"
+    "tsx": "^4.19.4"
   }
 }

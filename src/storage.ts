@@ -1,8 +1,8 @@
 import { Storage } from "@apillon/sdk";
+import { ToolSchema } from "@modelcontextprotocol/sdk/types.js";
+import fs from "fs/promises";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import fs from "fs/promises";
-import { ToolSchema } from "@modelcontextprotocol/sdk/types.js";
 
 // Initialize Apillon Storage client
 const apillonStorage = new Storage({
@@ -12,6 +12,11 @@ const apillonStorage = new Storage({
 });
 
 // Schema definitions
+export const CreateBucketArgsSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+});
+
 export const ListBucketsArgsSchema = z.object({
   limit: z.number().optional().default(10),
   page: z.number().optional().default(0),
@@ -36,6 +41,13 @@ type ToolInput = z.infer<typeof ToolInputSchema>;
 
 // Storage tools definition
 export const storageTools = [
+  {
+    name: "create_bucket",
+    description:
+      "Create a new storage bucket in your Apillon account. " +
+      "Returns the created bucket details including UUID, name, and creation date.",
+    inputSchema: zodToJsonSchema(CreateBucketArgsSchema) as ToolInput,
+  },
   {
     name: "list_buckets",
     description:
@@ -62,19 +74,44 @@ export const storageTools = [
 // Storage tool handlers
 export async function handleStorageTool(name: string, args: any) {
   switch (name) {
+    case "create_bucket": {
+      const parsed = CreateBucketArgsSchema.safeParse(args);
+      if (!parsed.success) {
+        throw new Error(`Invalid arguments for create_bucket: ${parsed.error}`);
+      }
+
+      try {
+        const bucket = await apillonStorage.createBucket({
+          name: parsed.data.name,
+          description: parsed.data.description,
+        });
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(bucket, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        throw new Error(
+          `Failed to create bucket: ${
+            error instanceof Error ? error.message : String(error)
+          }`
+        );
+      }
+    }
     case "list_buckets": {
       const parsed = ListBucketsArgsSchema.safeParse(args);
       if (!parsed.success) {
-        throw new Error(
-          `Invalid arguments for list_buckets: ${parsed.error}`
-        );
+        throw new Error(`Invalid arguments for list_buckets: ${parsed.error}`);
       }
 
       try {
         const buckets = await apillonStorage.listBuckets({
           limit: parsed.data.limit,
           page: parsed.data.page,
-          status: 5
+          status: 5,
         });
 
         return {
@@ -96,9 +133,7 @@ export async function handleStorageTool(name: string, args: any) {
     case "list_objects": {
       const parsed = ListObjectsArgsSchema.safeParse(args);
       if (!parsed.success) {
-        throw new Error(
-          `Invalid arguments for list_objects: ${parsed.error}`
-        );
+        throw new Error(`Invalid arguments for list_objects: ${parsed.error}`);
       }
 
       try {
