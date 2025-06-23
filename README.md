@@ -155,6 +155,12 @@ We welcome contributions to the Apillon MCP Server. Please check the [issues](ht
 
 This project is licensed under the MIT License.
 
+## MCP Review
+
+This MCP server is certified by [MCP review](https://mcpreview.com)
+
+Visit our own [MCP Review page](https://mcpreview.com/mcp-servers/apillon/mcp-server)
+
 ## Contact
 
 For more information, visit [Apillon's website](https://apillon.io) or reach out via [GitHub issues](https://github.com/Apillon/mcp-server/issues).
